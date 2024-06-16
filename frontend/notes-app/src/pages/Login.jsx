@@ -22,7 +22,7 @@ const Login = () => {
       return;
     }
 
-    setError(""); //if email is valid
+    setError(""); //no errors if email is valid
 
     //Login API call
   };
@@ -53,6 +53,7 @@ const Login = () => {
             <button type="submit" className="btn-primary">
               Login
             </button>
+
             <p className="text-sm text-center mt-4">
               Not registered yet?{" "}
               <Link to="/signup" className="font-medium text-primary underline">

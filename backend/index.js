@@ -27,7 +27,9 @@ app.get("/", (req, res) => {
   res.json({ data: "hello" });
 });
 
-//create account API
+// Backend ready!!!
+
+//Create account
 app.post("/create-account", async (req, res) => {
   const { fullName, email, password } = req.body;
 
@@ -76,7 +78,7 @@ app.post("/create-account", async (req, res) => {
   });
 });
 
-//login API
+//Login API
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -111,6 +113,25 @@ app.post("/login", async (req, res) => {
       .status(400)
       .json({ error: true, message: "Invalid credentials" });
   }
+});
+
+//Get user
+app.get("/get-user", authenticateToken, async (req, res) => {
+  const { user } = req.user;
+  const isUser = await User.findOne({ _id: user._id });
+
+  if (!isUser) {
+    return res.status(401);
+  }
+  return res.json({
+    user: {
+      fullName: isUser.fullName,
+      email: isUser.email,
+      _id: isUser._id,
+      createdOn: isUser.createdOn,
+    },
+    message: "",
+  });
 });
 
 //Add note

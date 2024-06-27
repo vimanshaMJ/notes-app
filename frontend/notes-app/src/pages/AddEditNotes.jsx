@@ -100,7 +100,7 @@ const AddEditNotes = ({
         <input
           type="text"
           className="text-2xl text-slate-950 outline-none"
-          placeholder="Go To Gym At 5"
+          placeholder="Title here"
           value={title}
           onChange={({ target }) => setTitle(target.value)}
         />
@@ -111,7 +111,7 @@ const AddEditNotes = ({
         <textarea
           type="text"
           className="text-sm text-slate-950 outline-none bg-slate-50 p-2 rounded"
-          placeholder="Content"
+          placeholder="Content here"
           rows={10}
           value={content}
           onChange={({ target }) => setContent(target.value)}

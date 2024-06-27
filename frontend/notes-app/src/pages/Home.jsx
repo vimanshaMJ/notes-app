@@ -9,6 +9,7 @@ import axiosInstance from "../utils/axiosInstance";
 import Toast from "../components/Toast";
 import EmptyCard from "../components/Cards/EmptyCard";
 import AddNoteImg from "../assets/Images/add-note.jpg";
+import NoDataImg from "../assets/Images/no-data.jpg";
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -19,6 +20,8 @@ const Home = () => {
 
   const [userInfo, setUserInfo] = useState(null);
   const [allNotes, setAllNotes] = useState([]);
+
+  const [isSearch, setIsSearch] = useState(false);
 
   const navigate = useNavigate();
 
@@ -90,6 +93,27 @@ const Home = () => {
     }
   };
 
+  // Search for a note
+  const onSearchNote = async (query) => {
+    try {
+      const response = await axiosInstance.get("/search-notes", {
+        params: { query },
+      });
+
+      if (response.data && response.data.notes) {
+        setIsSearch(true);
+        setAllNotes(response.data.notes);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClearSearch = async () => {
+    setIsSearch(false);
+    getAllNotes();
+  };
+
   useEffect(() => {
     getUserInfo();
     getAllNotes();
@@ -98,7 +122,11 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar userInfo={userInfo} />
+      <Navbar
+        userInfo={userInfo}
+        onSearchNote={onSearchNote}
+        handleClearSearch={handleClearSearch}
+      />
 
       <div className="container mx-auto">
         {allNotes.length > 0 ? (
@@ -119,8 +147,12 @@ const Home = () => {
           </div>
         ) : (
           <EmptyCard
-            imgScr={AddNoteImg}
-            message="Start creating your first note! Click the 'Add' button to jot down your thoughts, ideas and reminders. Let's get started!"
+            imgScr={isSearch ? NoDataImg : AddNoteImg}
+            message={
+              isSearch
+                ? `Oops! No notes found matching your search.`
+                : `Start creating your first note! Click the 'Add' button to jot down your thoughts, ideas and reminders. Let's get started!`
+            }
           />
         )}
       </div>

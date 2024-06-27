@@ -10,14 +10,18 @@ import axiosInstance from "../utils/axiosInstance";
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
-    type: "add",
     data: null,
+    type: "add",
   });
 
   const [userInfo, setUserInfo] = useState(null);
   const [allNotes, setAllNotes] = useState([]);
 
   const navigate = useNavigate();
+
+  const handleEdit = (noteDetails) => {
+    setOpenAddEditModal({ isShown: true, data: noteDetails, type: "edit" });
+  };
 
   // Get user info
   const getUserInfo = async () => {
@@ -67,7 +71,7 @@ const Home = () => {
               content={item.content}
               tags={item.tags}
               isPinned={item.isPinned}
-              onEdit={() => {}}
+              onEdit={() => handleEdit(item)}
               onDelete={() => {}}
               onPinNote={() => {}}
             />

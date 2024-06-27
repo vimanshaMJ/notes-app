@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/PasswordInput";
 import { validateEmail } from "../utils/helper";
+import axiosInstance from "../utils/axiosInstance";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -47,7 +48,7 @@ const Login = () => {
       ) {
         setError(error.response.data.message);
       } else {
-        setError("An unexpected erroe occured. Please try again");
+        setError("An unexpected error occured. Please try again.");
       }
     }
   };

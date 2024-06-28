@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import Toast from "../components/Toast";
 import EmptyCard from "../components/Cards/EmptyCard";
-import AddNoteImg from "../assets/Images/add-note.jpg";
-import NoDataImg from "../assets/Images/no-data.jpg";
+import AddNoteImg from "../assets/Images/add-note.png";
+import NoDataImg from "../assets/Images/no-data.png";
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
